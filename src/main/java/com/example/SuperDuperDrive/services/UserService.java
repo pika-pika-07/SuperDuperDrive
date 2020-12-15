@@ -30,6 +30,12 @@ public class UserService {
         return Base64.getEncoder().encodeToString(key);
     }
 
+    public Integer getCurrentLoggedInUserId(Authentication auth) {
+        String username = auth.getName();
+        User user = getUser(username);
+        return user.getUserid();
+    }
+
     public User getUser(String username) {
 
         return userMapper.getUser(username);
