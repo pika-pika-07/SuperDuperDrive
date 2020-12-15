@@ -27,6 +27,7 @@ public class FileController {
     public String uploadFile(Authentication auth, @RequestParam("fileUpload") MultipartFile file, Model model) throws IOException {
         Integer userid = userService.getCurrentLoggedInUserId(auth);
         if (fileService.isExistingFile(file, userid)) {
+            model.addAttribute("hasErrorMsg", true);
             model.addAttribute("errorMsg", "File with same name already exists. File not uploaded.");
         } else {
             fileService.storeFile(file, userid);
