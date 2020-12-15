@@ -1,15 +1,20 @@
 package com.example.SuperDuperDrive.controller;
 
+import com.example.SuperDuperDrive.model.File;
 import com.example.SuperDuperDrive.services.FileService;
 import com.example.SuperDuperDrive.services.UserService;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 @Controller
@@ -35,5 +40,16 @@ public class FileController {
         }
         model.addAttribute("redirectTab", "");
         return "result";
+    }
+
+    @GetMapping("/{fileId}")
+    public ResponseEntity<Resource> getFile(@PathVariable Integer fileId, Authentication auth) {
+        Integer userid = userService.getCurrentLoggedInUserId(auth);
+        File file = fileService.getFile(fileId, userid);
+        InputStreamResource resource = new InputStreamResource(new ByteArrayInputStream(file.getFiledata()));
+        return ResponseEntity.ok().contentType(MediaType.parseMediaType(file.getContenttype()))
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        "attachment; filename=" + file.getFilename())
+                .body(resource);
     }
 }
