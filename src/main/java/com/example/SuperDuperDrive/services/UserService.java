@@ -30,6 +30,11 @@ public class UserService {
         return Base64.getEncoder().encodeToString(key);
     }
 
+    public User getUser(String username) {
+
+        return userMapper.getUser(username);
+    }
+
     public int signupUser(User user) {
         String encodedSalt = Encoder();
         String hashedPassword = hashService.getHashedValue(user.getPassword(), encodedSalt);
