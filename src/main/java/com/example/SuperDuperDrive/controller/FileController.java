@@ -42,7 +42,7 @@ public class FileController {
         return "result";
     }
 
-    @GetMapping("/{fileId}")
+    @GetMapping("/view/{fileId}")
     public ResponseEntity<Resource> getFile(@PathVariable Integer fileId, Authentication auth) {
         Integer userid = userService.getCurrentLoggedInUserId(auth);
         File file = fileService.getFile(fileId, userid);
@@ -51,5 +51,14 @@ public class FileController {
                 .header(HttpHeaders.CONTENT_DISPOSITION,
                         "attachment; filename=" + file.getFilename())
                 .body(resource);
+    }
+
+    @GetMapping("/delete/{fileId}")
+    public String deleteFile(Authentication auth, @PathVariable Integer fileId, Model model) {
+        Integer userid = userService.getCurrentLoggedInUserId(auth);
+        fileService.deleteFile(fileId, userid);
+        model.addAttribute("success", true);
+        model.addAttribute("redirectTab", "");
+        return "result";
     }
 }
