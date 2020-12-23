@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -29,8 +30,9 @@ public class FileController {
     }
 
     @PostMapping
-    public String uploadFile(Authentication auth, @RequestParam("fileUpload") MultipartFile file, Model model) throws IOException {
+    public String uploadFile(Authentication auth, @RequestParam("fileUpload") MultipartFile file, Model model, RedirectAttributes redirectAttributes) throws IOException {
         Integer userid = userService.getCurrentLoggedInUserId(auth);
+        redirectAttributes.addFlashAttribute("activeTab", "files");
         if (fileService.isExistingFile(file, userid)) {
             model.addAttribute("hasErrorMsg", true);
             model.addAttribute("errorMsg", "File with same name already exists. File not uploaded.");
@@ -45,6 +47,7 @@ public class FileController {
     @GetMapping("/view/{fileId}")
     public ResponseEntity<Resource> getFile(@PathVariable Integer fileId, Authentication auth) {
         Integer userid = userService.getCurrentLoggedInUserId(auth);
+
         File file = fileService.getFile(fileId, userid);
         InputStreamResource resource = new InputStreamResource(new ByteArrayInputStream(file.getFiledata()));
         return ResponseEntity.ok().contentType(MediaType.parseMediaType(file.getContenttype()))
@@ -54,8 +57,9 @@ public class FileController {
     }
 
     @GetMapping("/delete/{fileId}")
-    public String deleteFile(Authentication auth, @PathVariable Integer fileId, Model model) {
+    public String deleteFile(Authentication auth, @PathVariable Integer fileId, Model model, RedirectAttributes redirectAttributes) {
         Integer userid = userService.getCurrentLoggedInUserId(auth);
+        redirectAttributes.addFlashAttribute("activeTab", "files");
         fileService.deleteFile(fileId, userid);
         model.addAttribute("success", true);
         model.addAttribute("redirectTab", "");

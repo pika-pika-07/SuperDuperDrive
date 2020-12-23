@@ -9,24 +9,27 @@
     <title>Home</title>
 </head>
 <body class="p-3 mb-2 bg-light text-black">
+
+
+
 <div class="container">
     <div id="logoutDiv">
         <form action="#" th:action="@{/logout}" method="POST">
             <button type="submit" class="btn btn-secondary float-right">Logout</button>
         </form>
     </div>
-</div>
+
 <div id="contentDiv" style="clear: right;">
     <nav style="clear: right;">
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <a class="nav-item nav-link active" id="nav-files-tab" data-toggle="tab" href="#nav-files" role="tab" aria-controls="nav-files" aria-selected="true">Files</a>
+            <a class="nav-item nav-link " id="nav-files-tab" data-toggle="tab" href="#nav-files" role="tab" aria-controls="nav-files" aria-selected="true">Files</a>
             <a class="nav-item nav-link" id="nav-notes-tab" data-toggle="tab" href="#nav-notes" role="tab" aria-controls="nav-notes" aria-selected="false">Notes</a>
             <a class="nav-item nav-link" id="nav-credentials-tab" data-toggle="tab" href="#nav-credentials" role="tab" aria-controls="nav-credentials" aria-selected="false">Credentials</a>
 
         </div>
     </nav>
     <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="nav-files" role="tabpanel" aria-labelledby="nav-files-tab">
+        <div class="tab-pane fade " id="nav-files" role="tabpanel" aria-labelledby="nav-files-tab">
             <form th:action="@{/file}" action="#" enctype="multipart/form-data" method="POST">
                 <div class="container">
                     <div class="row" style="margin: 1em;">
@@ -68,68 +71,77 @@
                 </table>
             </div>
         </div>
-<!--        <div class="tab-pane fade" id="nav-notes" role="tabpanel" aria-labelledby="nav-notes-tab">-->
-<!--            <button id="buttonAddNewNote" style="margin: 0.25em;" type="button" class="btn btn-info float-right" onclick="showNoteModal()">-->
-<!--                + Add a New Note-->
-<!--            </button>-->
+        <div class="tab-pane fade" id="nav-notes" role="tabpanel" aria-labelledby="nav-notes-tab">
+            <button id="buttonAddNewNote" style="margin: 0.25em;" type="button" class="btn btn-info float-right" onclick="showNoteModal()">
+                + Add a New Note
+            </button>
 
-<!--            <div class="table-responsive">-->
-<!--                <table class="table table-striped" id="notesTable">-->
-<!--                    <thead>-->
-<!--                    <tr>-->
-<!--                        <th style="width: 20%" scope="col"></th>-->
-<!--                        <th style="width: 20%" scope="col">Title</th>-->
-<!--                        <th style="width: 60%" scope="col">Description</th>-->
-<!--                    </tr>-->
-<!--                    </thead>-->
-<!--                    <tbody>-->
-<!--                    <tr th:each="note: ${notes}">-->
-<!--                        <td>-->
+            <div class="table-responsive">
+                <table class="table table-striped" id="notesTable">
+                    <thead>
+                    <tr>
+                        <th style="width: 20%" scope="col"></th>
+                        <th style="width: 20%" scope="col">Title</th>
+                        <th style="width: 60%" scope="col">Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="note: ${notes}">
+                        <td>
 <!--                            <form th:action="@{/note/{noteid}(noteid=${note.noteid})}" action="#" th:method="delete">-->
-<!--                                <button type="button" class="btn btn-success" th:data-noteid="${note.noteid}" th:data-notetitle="${note.notetitle}"-->
-<!--                                        th:data-notedesc="${note.notedescription}"-->
-<!--                                        onclick="showNoteModal(this.getAttribute('data-noteid'), this.getAttribute('data-notetitle'), this.getAttribute('data-notedesc'))">Edit</button>-->
+<!--                                <button type="button" class="btn btn-success" th:data-noteid="${note.noteId}" th:data-notetitle="${note.noteTitle}"-->
+<!--                                        th:data-notedesc="${note.noteDescription}"-->
+<!--                                        onclick="showNoteModal(this.getAttribute('data-noteid'), this.getAttribute('data-notetitle'), this.getAttribute('data-notedesc'))">-->
+<!--                                    Edit-->
+<!--                                </button>-->
 <!--                                <button class="btn btn-danger" style="display: inline-block;" type="submit" btn-outline-secondary>Delete</button>-->
 <!--                            </form>-->
-<!--                        </td>-->
-<!--                        <th th:text="${note.notetitle}" scope="row">Example Note Title</th>-->
-<!--                        <td th:text="${note.notedescription}">Example Note Description </td>-->
-<!--                    </tr>-->
-<!--                    </tbody>-->
-<!--                </table>-->
-<!--            </div>-->
+                            <button type="button" class="btn btn-success" th:data-noteId="${note.noteId}" th:data-noteTitle="${note.noteTitle}"
+                                    th:data-noteDesc="${note.noteDescription}"
+                                    th:onclick="showNoteModal(this.getAttribute('data-noteId'), this.getAttribute('data-noteTitle'), this.getAttribute('data-noteDesc'))">
+                                Edit
+                            </button>
+                            <a h:href="@{/delete-note/{id}(id=${note.noteId})}" class="btn btn-danger delete-note-button">Delete</a>
+                        </td>
+                        <th th:text="${note.noteTitle}" scope="row">Example Note Title</th>
+                        <td th:text="${note.noteDescription}">Example Note Description </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
 
-<!--            <div class="modal fade" id="noteModal" tabindex="-1" role="dialog" aria-labelledby="noteModalLabel" aria-hidden="true">-->
-<!--                <div class="modal-dialog" role="document">-->
-<!--                    <div class="modal-content">-->
-<!--                        <div class="modal-header">-->
-<!--                            <h5 class="modal-title" id="noteModalLabel">Note</h5>-->
-<!--                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-<!--                                <span aria-hidden="true">&times;</span>-->
-<!--                            </button>-->
-<!--                        </div>-->
-<!--                        <div class="modal-body">-->
-<!--                            <form th:object="${note}" th:action="@{/note}" action="#" method="POST">-->
-<!--                                <input th:field="*{noteid}" type="hidden" name="noteId" id="note-id">-->
-<!--                                <div class="form-group">-->
-<!--                                    <label for="note-title" class="col-form-label">Title</label>-->
-<!--                                    <input th:field="*{notetitle}" type="text" name= "noteTitle" class="form-control" id="note-title" maxlength="20" required>-->
-<!--                                </div>-->
-<!--                                <div class="form-group">-->
-<!--                                    <label for="note-description" class="col-form-label">Description</label>-->
-<!--                                    <textarea th:field="*{notedescription}" class="form-control" name="noteDescription" id="note-description" rows="5" maxlength="1000" required></textarea>-->
-<!--                                </div>-->
-<!--                                <button id="noteSubmit" type="submit" class="d-none"></button>-->
-<!--                            </form>-->
-<!--                        </div>-->
-<!--                        <div class="modal-footer">-->
-<!--                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
-<!--                            <button id="noteModalSaveChanges" type="button" class="btn btn-primary" onclick="$('#noteSubmit').click();">Save changes</button>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
+            <div class="modal fade" id="noteModal" tabindex="-1" role="dialog" aria-labelledby="noteModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="noteModalLabel">Note</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form th:object="${note}" th:action="@{/note}" action="#" method="POST">
+                                <input th:field="*{noteId}" type="hidden" name="noteId" id="note-id">
+                                <div class="form-group">
+                                    <label for="note-title" class="col-form-label">Title</label>
+                                    <input th:field="*{noteTitle}" type="text" name= "noteTitle" class="form-control" id="note-title" maxlength="20" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="note-description" class="col-form-label">Description</label>
+                                    <textarea th:field="*{noteDescription}" class="form-control" name="noteDescription" id="note-description" rows="5" maxlength="1000" required></textarea>
+                                </div>
+                                <button id="noteSubmit" type="submit" class="d-none"></button>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button id="noteModalSaveChanges" type="button" class="btn btn-primary" onclick="$('#noteSubmit').click();">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 <!--        <div class="tab-pane fade" id="nav-credentials" role="tabpanel" aria-labelledby="nav-credentials-tab">-->
 <!--            <button id="buttonAddNewCred" style="margin: 0.25em;" type="button" class="btn btn-info float-right" onclick="showCredentialModal()">-->
 <!--                + Add a New Credential-->
@@ -202,5 +214,46 @@
 <!--        </div>-->
     </div>
 </div>
+<script th:src="@{/jquery-3.5.1.min.js}"></script>
+<script th:src="@{/popper.min.js}"></script>
+<script th:src="@{/bootstrap.min.js}"></script>
+
+<script type="text/javascript">
+            const activeTabParam = '[[${param.activeTab} ? ${param.activeTab} : 'files']]';
+            const activeTabModel = "${activeTab}";
+            switch(true) {
+                case activeTabParam === 'files' || activeTabModel === 'files':
+                    $('#nav-files-tab').tab('show');
+                    break;
+                case activeTabParam === 'notes' || activeTabModel === 'notes':
+                    $('#nav-notes-tab').tab('show');
+                    break;
+                case activeTabParam === 'credentials' || activeTabModel === 'credentials':
+                    $('#nav-credentials-tab').tab('show');
+                    break;
+                default:
+                    $('#nav-files-tab').tab('show');
+                    break;
+            }
+            $(document).ready(function (e) {
+                $(window.location.hash).click();
+            });
+            // For opening the note modal
+            function showNoteModal(noteId, noteTitle, noteDescription) {
+                $('#note-id').val(noteId ? noteId : '');
+                $('#note-title').val(noteTitle ? noteTitle : '');
+                $('#note-description').val(noteDescription ? noteDescription : '');
+                $('#noteModal').modal('show');
+            }
+
+            // For opening the credentials modal
+            function showCredentialModal(credentialId, url, username, password) {
+                $('#credential-id').val(credentialId ? credentialId : '');
+                $('#credential-url').val(url ? url : '');
+                $('#credential-username').val(username ? username : '');
+                $('#credential-password').val(password ? password : '');
+                $('#credentialModal').modal('show');
+            }
+</script>
 </body>
 </html>
