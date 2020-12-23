@@ -32,7 +32,7 @@ public class FileController {
     @PostMapping
     public String uploadFile(Authentication auth, @RequestParam("fileUpload") MultipartFile file, Model model, RedirectAttributes redirectAttributes) throws IOException {
         Integer userid = userService.getCurrentLoggedInUserId(auth);
-        redirectAttributes.addFlashAttribute("activeTab", "files");
+       // redirectAttributes.addFlashAttribute("activeTab", "files");
         if (fileService.isExistingFile(file, userid)) {
             model.addAttribute("hasErrorMsg", true);
             model.addAttribute("errorMsg", "File with same name already exists. File not uploaded.");
@@ -59,10 +59,11 @@ public class FileController {
     @GetMapping("/delete/{fileId}")
     public String deleteFile(Authentication auth, @PathVariable Integer fileId, Model model, RedirectAttributes redirectAttributes) {
         Integer userid = userService.getCurrentLoggedInUserId(auth);
-        redirectAttributes.addFlashAttribute("activeTab", "files");
+       // redirectAttributes.addFlashAttribute("activeTab", "files");
         fileService.deleteFile(fileId, userid);
         model.addAttribute("success", true);
         model.addAttribute("redirectTab", "");
+        model.addAttribute("activeTab","files");
         return "result";
     }
 }

@@ -29,15 +29,16 @@ public class NoteController {
         Integer userid = userService.getCurrentLoggedInUserId(auth);
 
         note.setUserid(userid);
-        redirectAttributes.addFlashAttribute("activeTab", "notes");
+       // redirectAttributes.addFlashAttribute("activeTab", "notes");
         try {
             noteService.createOrEditNote(note);
-            model.addAttribute("isChangeSuccess", true);
+            model.addAttribute("success", true);
         } catch (Exception e) {
             model.addAttribute("hasGenericError", true);
             e.printStackTrace();
         }
         model.addAttribute("redirectTab", "nav-notes-tab");
+        model.addAttribute("activeTab", "notes");
         return "result";
     }
 

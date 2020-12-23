@@ -219,22 +219,22 @@
 <script th:src="@{/bootstrap.min.js}"></script>
 
 <script type="text/javascript">
-            const activeTabParam = '[[${param.activeTab} ? ${param.activeTab} : 'files']]';
-            const activeTabModel = "${activeTab}";
-            switch(true) {
-                case activeTabParam === 'files' || activeTabModel === 'files':
-                    $('#nav-files-tab').tab('show');
-                    break;
-                case activeTabParam === 'notes' || activeTabModel === 'notes':
-                    $('#nav-notes-tab').tab('show');
-                    break;
-                case activeTabParam === 'credentials' || activeTabModel === 'credentials':
-                    $('#nav-credentials-tab').tab('show');
-                    break;
-                default:
-                    $('#nav-files-tab').tab('show');
-                    break;
-            }
+<!--            const activeTabParam = '[[${param.activeTab} ? ${param.activeTab} : 'files']]';-->
+<!--            const activeTabModel = "${activeTab}";-->
+<!--            switch(true) {-->
+<!--                case activeTabParam === 'files' || activeTabModel === 'files':-->
+<!--                    $('#nav-files-tab').tab('show');-->
+<!--                    break;-->
+<!--                case activeTabParam === 'notes' || activeTabModel === 'notes':-->
+<!--                    $('#nav-notes-tab').tab('show');-->
+<!--                    break;-->
+<!--                case activeTabParam === 'credentials' || activeTabModel === 'credentials':-->
+<!--                    $('#nav-credentials-tab').tab('show');-->
+<!--                    break;-->
+<!--                default:-->
+<!--                    $('#nav-files-tab').tab('show');-->
+<!--                    break;-->
+<!--            }-->
             $(document).ready(function (e) {
                 $(window.location.hash).click();
             });
