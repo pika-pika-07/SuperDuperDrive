@@ -37,8 +37,8 @@ public class NoteController {
             model.addAttribute("hasGenericError", true);
             e.printStackTrace();
         }
-        model.addAttribute("redirectTab", "nav-notes-tab");
-        model.addAttribute("activeTab", "notes");
+        //model.addAttribute("redirectTab", "nav-notes-tab");
+        model.addAttribute("activeTab", "nav-notes-tab");
         return "result";
     }
 

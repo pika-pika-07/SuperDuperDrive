@@ -4,37 +4,29 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" type="text/css" media="all" th:href="@{/login.css}">
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/bootstrap.min.css}">
 
     <title>Login</title>
 </head>
-<body style="display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;">
-<div style="background-color: #eeeeee; margin-top: 5em; width: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}">
-    <h1 >Login</h1>
+<body class="p-3 mb-2 bg-light text-black">
+<div class="container justify-content-center w-25 p-3" style="background-color: #eeeeee; margin-top: 5em;">
+    <h1 class="display-5">Login</h1>
     <form th:action="@{/login}" action="#" method="POST">
-        <div class="userField" style="display: flex;
-    flex-direction: column;">
+        <div th:if="${param.error}" class="alert alert-danger">
+            Invalid username or password
+        </div>
+        <div th:if="${param.logout}" class="alert alert-dark">
+            You have been logged out
+        </div>
+        <div class="form-group">
             <label for="inputUsername">Username</label>
             <input type="input" class="form-control" name="username" id="inputUsername" placeholder="Enter Username" maxlength="20" required>
         </div>
-        <br/>
-        <div class="userPassword" style="display: flex;
-             flex-direction: column;">
+        <div class="form-group">
             <label for="inputPassword">Password</label>
             <input type="password" class="form-control" name="password" id="inputPassword" placeholder="Enter Password" maxlength="20" required>
         </div>
-        <div style="margin-top: 0.5em;">
-            <button type="submit" class="btn btn-primary">Login</button>
-        </div>
-
+        <button type="submit" class="btn btn-primary">Login</button>
     </form>
 
     <div class="form-group" style="margin-top: 0.5em;">
@@ -42,4 +34,38 @@
     </div>
 </div>
 </body>
+<!--<body style="display: flex;-->
+<!--      flex-direction: column;-->
+<!--      justify-content: center;-->
+<!--      align-items: center;">-->
+<!--<div style="background-color: #eeeeee; margin-top: 5em; width: 50%;-->
+<!--    display: flex;-->
+<!--    flex-direction: column;-->
+<!--    justify-content: center;-->
+<!--    align-items: center;-->
+<!--}">-->
+<!--    <h1 >Login</h1>-->
+<!--    <form th:action="@{/login}" action="#" method="POST">-->
+<!--        <div class="userField" style="display: flex;-->
+<!--    flex-direction: column;">-->
+<!--            <label for="inputUsername">Username</label>-->
+<!--            <input type="input" class="form-control" name="username" id="inputUsername" placeholder="Enter Username" maxlength="20" required>-->
+<!--        </div>-->
+<!--        <br/>-->
+<!--        <div class="userPassword" style="display: flex;-->
+<!--             flex-direction: column;">-->
+<!--            <label for="inputPassword">Password</label>-->
+<!--            <input type="password" class="form-control" name="password" id="inputPassword" placeholder="Enter Password" maxlength="20" required>-->
+<!--        </div>-->
+<!--        <div style="margin-top: 0.5em;">-->
+<!--            <button type="submit" class="btn btn-primary">Login</button>-->
+<!--        </div>-->
+
+<!--    </form>-->
+
+<!--    <div class="form-group" style="margin-top: 0.5em;">-->
+<!--        <label><a href="/signup">Click here to sign up</a></label>-->
+<!--    </div>-->
+<!--</div>-->
+<!--</body>-->
 </html>

@@ -40,7 +40,7 @@ public class FileController {
             fileService.storeFile(file, userid);
             model.addAttribute("success", true);
         }
-        model.addAttribute("redirectTab", "");
+        model.addAttribute("activeTab", "");
         return "result";
     }
 
@@ -62,8 +62,8 @@ public class FileController {
        // redirectAttributes.addFlashAttribute("activeTab", "files");
         fileService.deleteFile(fileId, userid);
         model.addAttribute("success", true);
-        model.addAttribute("redirectTab", "");
-        model.addAttribute("activeTab","files");
+        //model.addAttribute("redirectTab", "");
+        model.addAttribute("activeTab","");
         return "result";
     }
 }

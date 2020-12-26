@@ -34,7 +34,7 @@ public class HomeController {
         model.addAttribute("files", fileService.getFileNames(user.getUserid()));
         model.addAttribute("notes", noteService.getAllNotes(user.getUserid()));
         model.addAttribute("note", new Note());
-        model.addAttribute("activeTab", "files");
+        //model.addAttribute("activeTab", "files");
         return "home";
     }
 }
