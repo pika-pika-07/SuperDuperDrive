@@ -141,25 +141,25 @@
                 </div>
             </div>
         </div>
-    </div>
-<!--        <div class="tab-pane fade" id="nav-credentials" role="tabpanel" aria-labelledby="nav-credentials-tab">-->
-<!--            <button id="buttonAddNewCred" style="margin: 0.25em;" type="button" class="btn btn-info float-right" onclick="showCredentialModal()">-->
-<!--                + Add a New Credential-->
-<!--            </button>-->
 
-<!--            <div class="table-responsive">-->
-<!--                <table class="table table-striped" id="credentialTable">-->
-<!--                    <thead>-->
-<!--                    <tr>-->
-<!--                        <th style="width: 20%" scope="col"></th>-->
-<!--                        <th style="width: 35%" scope="col">URL</th>-->
-<!--                        <th style="width: 20%" scope="col">Username</th>-->
-<!--                        <th style="width: 25%" scope="col">Password</th>-->
-<!--                    </tr>-->
-<!--                    </thead>-->
-<!--                    <tbody>-->
-<!--                    <tr th:each="credential: ${credentials}">-->
-<!--                        <td>-->
+        <div class="tab-pane fade" id="nav-credentials" role="tabpanel" aria-labelledby="nav-credentials-tab">
+            <button id="buttonAddNewCred" style="margin: 0.25em;" type="button" class="btn btn-info float-right" onclick="showCredentialModal()">
+                + Add a New Credential
+            </button>
+
+            <div class="table-responsive">
+                <table class="table table-striped" id="credentialTable">
+                    <thead>
+                    <tr>
+                        <th style="width: 20%" scope="col"></th>
+                        <th style="width: 35%" scope="col">URL</th>
+                        <th style="width: 20%" scope="col">Username</th>
+                        <th style="width: 25%" scope="col">Password</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="credential: ${credentials}">
+                        <td>
 <!--                            <form th:action="@{/credential/{credentialid}(credentialid=${credential.credentialid})}" action="#" th:method="delete">-->
 <!--                                <button data-id="editCred" type="button" class="btn btn-success" th:data-credid="${credential.credentialid}"-->
 <!--                                        th:data-credurl="${credential.url}"-->
@@ -168,51 +168,59 @@
 <!--                                        onclick="showCredentialModal(this.getAttribute('data-credid'), this.getAttribute('data-credurl'), this.getAttribute('data-credusername'), this.getAttribute('data-credpwd'))">Edit</button>-->
 <!--                                <button data-id="deleteCred" class="btn btn-danger" style="display: inline-block;" type="submit" btn-outline-secondary>Delete</button>-->
 <!--                            </form>-->
-<!--                        </td>-->
-<!--                        <th data-id="credentialUrl" th:text="${credential.url}" scope="row">Example Credential URL</th>-->
-<!--                        <td data-id="credentialUsername" th:text="${credential.username}">Example Credential Username</td>-->
-<!--                        <td  data-id="credentialPassword" th:text="${credential.password}">Example Credential Password</td>-->
-<!--                    </tr>-->
-<!--                    </tbody>-->
-<!--                </table>-->
-<!--            </div>-->
+                            <button type="button" class="btn btn-success" th:data-credid="${credential.credentialid}"
+                                    th:data-credurl="${credential.url}"
+                                    th:data-credusername="${credential.username}"
+                                    th:data-credpwd="${credential.decryptedPassword}"
+                                    th:onclick="showCredentialModal(this.getAttribute('data-credid'), this.getAttribute('data-credurl'), this.getAttribute('data-credusername'), this.getAttribute('data-credpwd'))"
+                            >Edit</button>
+                            <a data-id="deleteCred" href="@{/credential/{credentialid}(credentialid=${credential.credentialid})}" class="btn btn-danger">Delete</a>
+                        </td>
+                        <th data-id="credentialUrl" th:text="${credential.url}" scope="row">Example Credential URL</th>
+                        <td data-id="credentialUsername" th:text="${credential.username}">Example Credential Username</td>
+                        <td  data-id="credentialPassword" th:text="${credential.password}">Example Credential Password</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
 
-<!--            <div class="modal fade" id="credentialModal" tabindex="-1" role="dialog" aria-labelledby="credentialModalLabel" aria-hidden="true">-->
-<!--                <div class="modal-dialog" role="document">-->
-<!--                    <div class="modal-content">-->
-<!--                        <div class="modal-header">-->
-<!--                            <h5 class="modal-title" id="credentialModalLabel">Credential</h5>-->
-<!--                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-<!--                                <span aria-hidden="true">&times;</span>-->
-<!--                            </button>-->
-<!--                        </div>-->
-<!--                        <div class="modal-body">-->
-<!--                            <form th:object="${credential}" th:action="@{/credential}" action="#" method="POST">-->
-<!--                                <input th:field="*{credentialid}" type="hidden" name="credentialId" id="credential-id">-->
-<!--                                <div class="form-group">-->
-<!--                                    <label for="note-title" class="col-form-label">URL</label>-->
-<!--                                    <input th:field="*{url}" type="text" name= "url" class="form-control" id="credential-url" maxlength="100" required>-->
-<!--                                </div>-->
-<!--                                <div class="form-group">-->
-<!--                                    <label for="note-title" class="col-form-label">Username</label>-->
-<!--                                    <input th:field="*{username}" type="text" name= "username" class="form-control" id="credential-username" maxlength="30" required>-->
-<!--                                </div>-->
-<!--                                <div class="form-group">-->
-<!--                                    <label for="note-title" class="col-form-label">Password</label>-->
-<!--                                    <input th:field="*{decryptedPassword}" type="text" name= "password" class="form-control" id="credential-password" maxlength="30" required>-->
-<!--                                </div>-->
-<!--                                <button id="credentialSubmit" type="submit" class="d-none"></button>-->
-<!--                            </form>-->
-<!--                        </div>-->
-<!--                        <div class="modal-footer">-->
-<!--                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
-<!--                            <button id="credModalSaveChanges" type="button" class="btn btn-primary" onclick="$('#credentialSubmit').click();">Save changes</button>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
+            <div class="modal fade" id="credentialModal" tabindex="-1" role="dialog" aria-labelledby="credentialModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="credentialModalLabel">Credential</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form th:object="${credential}" th:action="@{/credential}" action="#" method="POST">
+                                <input th:field="*{credentialid}" type="hidden" name="credentialId" id="credential-id">
+                                <div class="form-group">
+                                    <label for="note-title" class="col-form-label">URL</label>
+                                    <input th:field="*{url}" type="text" name= "url" class="form-control" id="credential-url" maxlength="100" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="note-title" class="col-form-label">Username</label>
+                                    <input th:field="*{username}" type="text" name= "username" class="form-control" id="credential-username" maxlength="30" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="note-title" class="col-form-label">Password</label>
+                                    <input th:field="*{decryptedPassword}" type="text" name= "password" class="form-control" id="credential-password" maxlength="30" required>
+                                </div>
+                                <button id="credentialSubmit" type="submit" class="d-none"></button>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button id="credModalSaveChanges" type="button" class="btn btn-primary" onclick="$('#credentialSubmit').click();">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 </div>
 <script th:src="@{/jquery-3.5.1.min.js}"></script>
 <script th:src="@{/popper.min.js}"></script>
