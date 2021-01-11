@@ -28,7 +28,7 @@ public class CredentialController {
             credentialService.createOrEditCredential(credential);
             model.addAttribute("success", true);
         } catch (Exception e) {
-            model.addAttribute("hasGenericError", true);
+            model.addAttribute("exceptionOccured", true);
             e.printStackTrace();
         }
         model.addAttribute("activeTab", "nav-credentials-tab");
