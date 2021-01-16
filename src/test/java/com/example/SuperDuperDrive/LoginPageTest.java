@@ -12,7 +12,7 @@ public class LoginPageTest {
 
     @FindBy(id="inputPassword")
     private WebElement password;
-    
+
     @FindBy(xpath="//button[contains(text(),'Login')]")
     private WebElement button;
 

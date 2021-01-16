@@ -32,13 +32,6 @@ public class SignUpPageTest {
         this.usernameField.sendKeys(userName);
         this.passwordField.sendKeys(password);
         this.submitButtonField.click();
-
-//        enterText(inputFirstname, firstname);
-//        enterText(inputLastname, lastname);
-//        enterText(inputUsername, username);
-//        enterText(inputPassword, password);
-//        click(buttonSignup);
-//        wait(1);
     }
 
 }

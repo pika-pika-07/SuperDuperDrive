@@ -15,9 +15,10 @@ class SuperDuperDriveApplicationTests {
 	@LocalServerPort
 	private int port;
 
-	private WebDriver driver;
+	public static WebDriver driver;
 	private LoginPageTest loginPageTest;
 	private SignUpPageTest signupPageTest;
+	private HomePageTest homePageTest;
 
 	@BeforeAll
 	static void beforeAll() {
@@ -36,6 +37,7 @@ class SuperDuperDriveApplicationTests {
 		this.driver = new ChromeDriver();
 		loginPageTest = new LoginPageTest(driver);
 		signupPageTest = new SignUpPageTest(driver);
+		homePageTest = new HomePageTest(driver);
 	}
 
 	@Order(1)
@@ -66,7 +68,20 @@ class SuperDuperDriveApplicationTests {
 		loginPageTest.login(username, password);
 		Assertions.assertEquals("Home", driver.getTitle());
 
+		driver.get("http://localhost:" + this.port + "/home");
+		Assertions.assertEquals("Home", driver.getTitle());
 
+
+	}
+
+	@Test
+	public void verifyNoteCreate() throws InterruptedException {
+		verifyNewUserAccess();
+		String noteTitle = "Test Note 1";
+		String noteDesc = "Note 1 desc";
+		homePageTest.addNote(noteTitle, noteDesc,driver);
+		Assertions.assertEquals(noteTitle, homePageTest.getFirstNoteTitle());
+		Assertions.assertEquals(noteDesc, homePageTest.getFirstNoteDescription());
 	}
 
 }
