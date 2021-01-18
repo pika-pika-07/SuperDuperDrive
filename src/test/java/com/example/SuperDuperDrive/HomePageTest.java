@@ -42,13 +42,20 @@ public class HomePageTest {
     @FindBy(id="buttonAddNewNote")
     private WebElement buttonAddNewNote;
 
-    @FindBy(css="#notesTable tbody tr th")
+//    @FindBy(css="#notesTable tbody tr th")
+//    private WebElement noteTitles;
+
+    @FindBy(id="noteTitle")
     private WebElement noteTitles;
 
-    @FindBy(css="#notesTable tbody tr td:nth-of-type(2)")
+//    @FindBy(css="#notesTable tbody tr td:nth-of-type(2)")
+//    private WebElement noteDescriptions;
+
+
+    @FindBy(id="noteDescription")
     private WebElement noteDescriptions;
 
-    @FindBy(css="#notesTable form button:nth-of-type(1)")
+    @FindBy(id="editNote")
     private WebElement buttonNoteEdit;
 
     @FindBy(css="#notesTable form button:nth-of-type(2)")
@@ -110,7 +117,7 @@ public class HomePageTest {
     public void addNote(String title, String description, WebDriver driver) {
 
        // WebDriverWait wait = new WebDriverWait(driver, 1);
-        WebDriverWait wait = new WebDriverWait(driver, 1);
+        WebDriverWait wait = new WebDriverWait(driver, 10);
 
         // switch to Tab Nav notes
         wait.until(ExpectedConditions.elementToBeClickable(this.tabNavNotes));
@@ -118,6 +125,7 @@ public class HomePageTest {
         wait.until(ExpectedConditions.visibilityOf(this.tabNavNotes));
 
         // Click on add new Note button
+
         wait.until(ExpectedConditions.elementToBeClickable(this.buttonAddNewNote));
         this.buttonAddNewNote.click();
 
@@ -130,7 +138,7 @@ public class HomePageTest {
         // Submit Note Modal
         wait.until(ExpectedConditions.elementToBeClickable(this.buttonNoteSaveChanges));
         this.buttonNoteSaveChanges.click();
-       // wait.until(ExpectedConditions.invisibilityOf(this.buttonAddNewNote));
+      //  wait.until(ExpectedConditions.invisibilityOf(this.buttonAddNewNote));
 
         // Success Link
         wait.until(ExpectedConditions.visibilityOf(this.linkChangeSuccess));
@@ -143,22 +151,72 @@ public class HomePageTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        wait.until(ExpectedConditions.elementToBeClickable(this.buttonLogout));
+
+      //  wait.until(ExpectedConditions.elementToBeClickable(this.buttonLogout));
+        //wait.until(ExpectedConditions.elementToBeClickable(this.tabNavNotes));
+        //this.tabNavNotes.click();
+
+       // wait.until(ExpectedConditions.elementToBeClickable(this.buttonAddNewNote));
+
+    }
+
+    public void editNote(String title, String description, WebDriver driver) {
+        WebDriverWait wait = new WebDriverWait(driver, 1);
+
+
+        wait.until(ExpectedConditions.elementToBeClickable(this.buttonNoteEdit));
+        this.buttonNoteEdit.click();
+
+        wait.until(ExpectedConditions.visibilityOf(this.headerNoteModal));
+        this.inputNoteTitle.clear();
+        this.inputNoteDescription.clear();
+        try {
+            Thread.sleep(1 * 1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        this.inputNoteTitle.sendKeys(title);
+        this.inputNoteDescription.sendKeys(description);
+
+
+        wait.until(ExpectedConditions.elementToBeClickable(this.buttonNoteSaveChanges));
+        this.buttonNoteSaveChanges.click();
+      //  wait.until(ExpectedConditions.invisibilityOf(this.buttonAddNewNote));
+
+
+        wait.until(ExpectedConditions.visibilityOf(this.linkChangeSuccess));
+        this.linkChangeSuccess.click();
+
+
+        //wait(1);
+        try {
+            Thread.sleep(5 * 1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //wait.until(ExpectedConditions.elementToBeClickable(this.buttonLogout));
+       // wait.until(ExpectedConditions.elementToBeClickable(this.tabNavNotes));
+//        this.tabNavNotes.click();
+
+//        wait.until(ExpectedConditions.visibilityOf(this.tabNavNotes));
+//        wait.until(ExpectedConditions.elementToBeClickable(this.buttonAddNewNote));
+
+
+    }
+
+
+    public void changeTabToNotes(WebDriver driver) {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+
         wait.until(ExpectedConditions.elementToBeClickable(this.tabNavNotes));
         this.tabNavNotes.click();
+        wait.until(ExpectedConditions.visibilityOf(this.tabNavNotes));
+      //  wait.until(ExpectedConditions.elementToBeClickable(this.buttonAddNewNote));
 
-        wait.until(ExpectedConditions.elementToBeClickable(this.buttonAddNewNote));
-
-        //WebDriverWait wait = new WebDriverWait(driver, 10);
-        //wait.until(ExpectedConditions.invisibilityOfElementLocated(this.buttonAddNewNote));
-
-
-
-
-//        submitNoteModal(title, description);
-//        clickChangeSuccessLink();
-//        waitForClickability(buttonAddNewNote);
     }
+
 
     public String getFirstNoteTitle() {
 
@@ -166,6 +224,7 @@ public class HomePageTest {
     }
 
     public String getFirstNoteDescription() {
+
         return this.noteDescriptions.getText();
     }
 

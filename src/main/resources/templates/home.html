@@ -80,31 +80,24 @@
                 <table class="table table-striped" id="notesTable">
                     <thead>
                     <tr>
-                        <th style="width: 20%" scope="col"></th>
-                        <th style="width: 20%" scope="col">Title</th>
-                        <th style="width: 60%" scope="col">Description</th>
+                        <th style="width: 20%" ></th>
+                        <th style="width: 20%" >Title</th>
+                        <th style="width: 60%" >Description</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="note: ${notes}">
+                    <tr th:each="note,index: ${notes}">
                         <td>
-<!--                            <form th:action="@{/note/{noteid}(noteid=${note.noteid})}" action="#" th:method="delete">-->
-<!--                                <button type="button" class="btn btn-success" th:data-noteid="${note.noteId}" th:data-notetitle="${note.noteTitle}"-->
-<!--                                        th:data-notedesc="${note.noteDescription}"-->
-<!--                                        onclick="showNoteModal(this.getAttribute('data-noteid'), this.getAttribute('data-notetitle'), this.getAttribute('data-notedesc'))">-->
-<!--                                    Edit-->
-<!--                                </button>-->
-<!--                                <button class="btn btn-danger" style="display: inline-block;" type="submit" btn-outline-secondary>Delete</button>-->
-<!--                            </form>-->
                             <button type="button" class="btn btn-success" th:data-noteId="${note.noteId}" th:data-noteTitle="${note.noteTitle}"
+                                    id = "editNote"
                                     th:data-noteDesc="${note.noteDescription}"
                                     th:onclick="showNoteModal(this.getAttribute('data-noteId'), this.getAttribute('data-noteTitle'), this.getAttribute('data-noteDesc'))">
                                 Edit
                             </button>
                             <a h:href="@{/delete-note/{id}(id=${note.noteId})}" class="btn btn-danger delete-note-button">Delete</a>
                         </td>
-                        <th th:text="${note.noteTitle}" scope="row">Example Note Title</th>
-                        <td th:text="${note.noteDescription}">Example Note Description </td>
+                        <td th:text="${note.noteTitle}" id="noteTitle">Example Note Title</td>
+                        <td th:text="${note.noteDescription}" id="noteDescription">Example Note Description </td>
                     </tr>
                     </tbody>
                 </table>
