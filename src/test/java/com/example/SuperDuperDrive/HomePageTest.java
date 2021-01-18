@@ -42,7 +42,7 @@ public class HomePageTest {
     @FindBy(id="buttonAddNewNote")
     private WebElement buttonAddNewNote;
 
-//    @FindBy(css="#notesTable tbody tr th")
+//    @FindBy(css="#notesTable tbody tr td:nth-of-type(1)")
 //    private WebElement noteTitles;
 
     @FindBy(id="noteTitle")
@@ -219,8 +219,9 @@ public class HomePageTest {
 
 
     public String getFirstNoteTitle() {
-
+        System.out.println(this.noteTitles);
         return this.noteTitles.getText();
+
     }
 
     public String getFirstNoteDescription() {
