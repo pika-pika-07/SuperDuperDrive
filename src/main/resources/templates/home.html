@@ -9,9 +9,6 @@
     <title>Home</title>
 </head>
 <body class="p-3 mb-2 bg-light text-black">
-
-
-
 <div class="container">
     <div id="logoutDiv">
         <form action="#" th:action="@{/logout}" method="POST">
@@ -94,7 +91,7 @@
                                     th:onclick="showNoteModal(this.getAttribute('data-noteId'), this.getAttribute('data-noteTitle'), this.getAttribute('data-noteDesc'))">
                                 Edit
                             </button>
-                            <a h:href="@{/delete-note/{id}(id=${note.noteId})}" class="btn btn-danger delete-note-button">Delete</a>
+                            <a th:href="@{note/delete-note/{noteId} (noteId=${note.noteId})}" class="btn btn-danger delete-note-button" id="noteDelete">Delete</a>
                         </td>
                         <td th:text="${note.noteTitle}" id="noteTitle">Example Note Title</td>
                         <td th:text="${note.noteDescription}" id="noteDescription">Example Note Description </td>
@@ -220,23 +217,7 @@
 <script th:src="@{/bootstrap.min.js}"></script>
 
 <script type="text/javascript">
-<!--            const activeTabParam = '[[${param.activeTab} ? ${param.activeTab} : 'files']]';-->
-<!--            const activeTabModel = "${activeTab}";-->
-<!--            switch(true) {-->
-<!--                case activeTabParam === 'files' || activeTabModel === 'files':-->
-<!--                    $('#nav-files-tab').tab('show');-->
-<!--                    break;-->
-<!--                case activeTabParam === 'notes' || activeTabModel === 'notes':-->
-<!--                    $('#nav-notes-tab').tab('show');-->
-<!--                    break;-->
-<!--                case activeTabParam === 'credentials' || activeTabModel === 'credentials':-->
-<!--                    $('#nav-credentials-tab').tab('show');-->
-<!--                    break;-->
-<!--                default:-->
-<!--                    $('#nav-files-tab').tab('show');-->
-<!--                    break;-->
-<!--            }-->
-            $(document).ready(function (e) {
+    $(document).ready(function (e) {
                 $(window.location.hash).click();
             });
             // For opening the note modal
@@ -255,6 +236,7 @@
                 $('#credential-password').val(password ? password : '');
                 $('#credentialModal').modal('show');
             }
+
 </script>
 </body>
 </html>

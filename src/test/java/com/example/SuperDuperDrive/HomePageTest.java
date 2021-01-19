@@ -8,6 +8,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
+
 public class HomePageTest {
 
     public HomePageTest(WebDriver driver){
@@ -58,7 +60,7 @@ public class HomePageTest {
     @FindBy(id="editNote")
     private WebElement buttonNoteEdit;
 
-    @FindBy(css="#notesTable form button:nth-of-type(2)")
+    @FindBy(id="noteDelete")
     private WebElement buttonNoteDelete;
 
 
@@ -196,13 +198,28 @@ public class HomePageTest {
             e.printStackTrace();
         }
 
-        //wait.until(ExpectedConditions.elementToBeClickable(this.buttonLogout));
-       // wait.until(ExpectedConditions.elementToBeClickable(this.tabNavNotes));
-//        this.tabNavNotes.click();
 
-//        wait.until(ExpectedConditions.visibilityOf(this.tabNavNotes));
-//        wait.until(ExpectedConditions.elementToBeClickable(this.buttonAddNewNote));
+    }
+//
+    public void deleteNote(WebDriver driver) {
 
+        WebDriverWait wait = new WebDriverWait(driver, 1);
+
+        wait.until(ExpectedConditions.elementToBeClickable(this.buttonNoteDelete));
+        this.buttonNoteDelete.click();
+      //  wait.until(ExpectedConditions.invisibilityOf(this.buttonAddNewNote));
+        try {
+            Thread.sleep(1 * 1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        wait.until(ExpectedConditions.visibilityOf(this.linkChangeSuccess));
+        this.linkChangeSuccess.click();
+        try {
+            Thread.sleep(1 * 1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -229,6 +246,9 @@ public class HomePageTest {
         return this.noteDescriptions.getText();
     }
 
+//    public int getNoteCount(WebDriver driver) {
+//        return this.noteTitles.getText();
+//    }
 
 
 
