@@ -153,14 +153,12 @@ class SuperDuperDriveApplicationTests {
 	public void verifyCredentialEdit() throws InterruptedException {
 		loginAsUserWithCreds();
 		homePageTest.changeTabToCreds(driver);
-		String credUrl = "http://www.google.com";
-		String credUser = "testUser1";
-		String credPwd = "testPwd1";
+		String credUrl = "http://www.google.co.in";
+		String credUser = homePageTest.getCredUsername() + "new" + "testUser123";
+		String credPwd = homePageTest.getCredPassword() + "new" +"password123";
 		homePageTest.editCredential(credUrl, credUser, credPwd,driver);
-		//Assertions.assertEquals(credUrl, homePageTest.getCredUrl());
+		Assertions.assertEquals(credUrl, homePageTest.getCredUrl());
 		Assertions.assertEquals(credUser, homePageTest.getCredUsername());
-		//Assertions.assertNotEquals(credPwd, homePageTest.getFirstCredPassword());
-
 	}
 
 

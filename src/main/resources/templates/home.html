@@ -150,15 +150,7 @@
                     <tbody>
                     <tr th:each="credential: ${credentials}">
                         <td>
-<!--                            <form th:action="@{/credential/{credentialid}(credentialid=${credential.credentialid})}" action="#" th:method="delete">-->
-<!--                                <button data-id="editCred" type="button" class="btn btn-success" th:data-credid="${credential.credentialid}"-->
-<!--                                        th:data-credurl="${credential.url}"-->
-<!--                                        th:data-credusername="${credential.username}"-->
-<!--                                        th:data-credpwd="${credential.decryptedPassword}"-->
-<!--                                        onclick="showCredentialModal(this.getAttribute('data-credid'), this.getAttribute('data-credurl'), this.getAttribute('data-credusername'), this.getAttribute('data-credpwd'))">Edit</button>-->
-<!--                                <button data-id="deleteCred" class="btn btn-danger" style="display: inline-block;" type="submit" btn-outline-secondary>Delete</button>-->
-<!--                            </form>-->
-                            <button type="button" class="btn btn-success" th:data-credid="${credential.credentialid}"
+                            <button id="editCred" type="button" class="btn btn-success" th:data-credid="${credential.credentialid}"
                                     th:data-credurl="${credential.url}"
                                     th:data-credusername="${credential.username}"
                                     th:data-credpwd="${credential.decryptedPassword}"

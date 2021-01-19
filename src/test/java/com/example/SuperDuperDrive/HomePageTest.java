@@ -81,7 +81,7 @@ public class HomePageTest {
     @FindBy(id="buttonAddNewCred")
     private WebElement  buttonAddNewCred;
 
-    @FindBy(css="[data-id='editCred']")
+    @FindBy(id="editCred")
     private WebElement buttonEditCred;
 
     @FindBy(css="[data-id='deleteCred']")
@@ -259,12 +259,19 @@ public class HomePageTest {
         WebDriverWait wait = new WebDriverWait(driver, 1);
 //        wait.until(ExpectedConditions.elementToBeClickable(this.tabNavCredentials));
 //        this.tabNavCredentials.click();
+        try {
+            Thread.sleep(1 * 1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        wait.until(ExpectedConditions.elementToBeClickable(this.buttonAddNewCred));
-        this.buttonAddNewCred.click();
+        wait.until(ExpectedConditions.elementToBeClickable(this.buttonEditCred));
+        this.buttonEditCred.click();
 
         wait.until(ExpectedConditions.visibilityOf(this.headerCredModal));
 
+        this.inputCredUrl.clear();
+        this.inputCredUser.clear();
         this.inputCredUrl.sendKeys(url);
         this.inputCredUser.sendKeys(username);
         this.inputCredPwd.sendKeys(password);
@@ -285,10 +292,7 @@ public class HomePageTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
-
 
 
     public void changeTabToNotes(WebDriver driver) {
@@ -328,6 +332,10 @@ public class HomePageTest {
 
     public String getCredUsername() {
         return this.credUsernames.getText();
+    }
+
+    public String getCredPassword() {
+        return this.credPasswords.getText();
     }
 
 
