@@ -1,7 +1,9 @@
 package com.example.SuperDuperDrive;
 
+import com.example.SuperDuperDrive.model.Credential;
 import com.example.SuperDuperDrive.model.Note;
 import com.example.SuperDuperDrive.model.User;
+import com.example.SuperDuperDrive.services.CredentialService;
 import com.example.SuperDuperDrive.services.NoteService;
 import com.example.SuperDuperDrive.services.UserService;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -26,6 +28,9 @@ class SuperDuperDriveApplicationTests {
 
 	@Autowired
 	NoteService noteService;
+
+	@Autowired
+	CredentialService credentialService;
 
 
 	@LocalServerPort
@@ -131,7 +136,6 @@ class SuperDuperDriveApplicationTests {
 
 	@Order(7)
 	@Test
-
 	public void verifyCredentialCreate() throws InterruptedException {
 		loginAsTestUser();
 		homePageTest.changeTabToCreds(driver);
@@ -139,6 +143,20 @@ class SuperDuperDriveApplicationTests {
 		String credUser = "testUser1";
 		String credPwd = "testPwd1";
 		homePageTest.addCredential(credUrl, credUser, credPwd,driver);
+		//Assertions.assertEquals(credUrl, homePageTest.getCredUrl());
+		Assertions.assertEquals(credUser, homePageTest.getCredUsername());
+		//Assertions.assertNotEquals(credPwd, homePageTest.getFirstCredPassword());
+	}
+
+	@Order(8)
+	@Test
+	public void verifyCredentialEdit() throws InterruptedException {
+		loginAsUserWithCreds();
+		homePageTest.changeTabToCreds(driver);
+		String credUrl = "http://www.google.com";
+		String credUser = "testUser1";
+		String credPwd = "testPwd1";
+		homePageTest.editCredential(credUrl, credUser, credPwd,driver);
 		//Assertions.assertEquals(credUrl, homePageTest.getCredUrl());
 		Assertions.assertEquals(credUser, homePageTest.getCredUsername());
 		//Assertions.assertNotEquals(credPwd, homePageTest.getFirstCredPassword());
@@ -180,6 +198,18 @@ class SuperDuperDriveApplicationTests {
 		driver.get("http://localhost:" + this.port + "/login");
 		loginPageTest.login(user.getUsername(), user.getPassword());
 		driver.get("http://localhost:" + this.port + "/home");
+	}
+
+	private void loginAsUserWithCreds() {
+		User user = createTestUser();
+		Credential cred = new Credential();
+		cred.setUrl("http://www.google.com");
+		cred.setUsername("testUser1");
+		cred.setDecryptedPassword("testPass1");
+		cred.setUserid(user.getUserid());
+		credentialService.createOrEditCredential(cred);
+
+		loginAsTestUser(user);
 	}
 
 }

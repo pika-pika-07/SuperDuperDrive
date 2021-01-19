@@ -253,6 +253,38 @@ public class HomePageTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void editCredential(String url, String username, String password, WebDriver driver) {
+        WebDriverWait wait = new WebDriverWait(driver, 1);
+//        wait.until(ExpectedConditions.elementToBeClickable(this.tabNavCredentials));
+//        this.tabNavCredentials.click();
+
+        wait.until(ExpectedConditions.elementToBeClickable(this.buttonAddNewCred));
+        this.buttonAddNewCred.click();
+
+        wait.until(ExpectedConditions.visibilityOf(this.headerCredModal));
+
+        this.inputCredUrl.sendKeys(url);
+        this.inputCredUser.sendKeys(username);
+        this.inputCredPwd.sendKeys(password);
+        wait.until(ExpectedConditions.elementToBeClickable(this.buttonCredSaveChanges));
+        this.buttonCredSaveChanges.click();
+
+        try {
+            Thread.sleep(1 * 1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //  wait.until(ExpectedConditions.visibilityOf(this.linkChangeSuccess));
+        wait.until(ExpectedConditions.elementToBeClickable(this.linkChangeSuccess));
+        this.linkChangeSuccess.click();
+
+        try {
+            Thread.sleep(2 * 1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
     }
