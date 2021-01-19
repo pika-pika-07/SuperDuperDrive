@@ -35,7 +35,8 @@ public class CredentialController {
         return "result";
     }
 
-    @DeleteMapping("/{credentialid}")
+  //  @DeleteMapping("/{credentialid}")
+    @GetMapping("/delete-credential/{credentialid}")
     public String deleteCredential(Authentication auth, @PathVariable Integer credentialid, Model model) {
         Integer userid = userService.getCurrentLoggedInUserId(auth);
         try {

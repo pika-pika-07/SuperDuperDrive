@@ -295,6 +295,38 @@ public class HomePageTest {
     }
 
 
+    public void deleteCredential(WebDriver driver) {
+        WebDriverWait wait = new WebDriverWait(driver, 1);
+//        wait.until(ExpectedConditions.elementToBeClickable(this.tabNavCredentials));
+//        this.tabNavCredentials.click();
+        try {
+            Thread.sleep(1 * 1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        wait.until(ExpectedConditions.elementToBeClickable(this.buttonDeleteCred));
+        this.buttonDeleteCred.click();
+
+        try {
+            Thread.sleep(1 * 1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        //  wait.until(ExpectedConditions.visibilityOf(this.linkChangeSuccess));
+        wait.until(ExpectedConditions.elementToBeClickable(this.linkChangeSuccess));
+        this.linkChangeSuccess.click();
+
+        try {
+            Thread.sleep(2 * 1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public void changeTabToNotes(WebDriver driver) {
         WebDriverWait wait = new WebDriverWait(driver, 10);
 

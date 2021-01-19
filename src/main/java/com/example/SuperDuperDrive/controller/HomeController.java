@@ -34,7 +34,6 @@ public class HomeController {
     public String home(Authentication authentication, Model model){
         String currentUsername = authentication.getName();
         User user = userService.getUser(currentUsername);
-
         model.addAttribute("files", fileService.getFileNames(user.getUserid()));
         model.addAttribute("notes", noteService.getAllNotes(user.getUserid()));
         model.addAttribute("note", new Note());

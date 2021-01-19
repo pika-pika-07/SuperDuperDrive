@@ -156,7 +156,7 @@
                                     th:data-credpwd="${credential.decryptedPassword}"
                                     th:onclick="showCredentialModal(this.getAttribute('data-credid'), this.getAttribute('data-credurl'), this.getAttribute('data-credusername'), this.getAttribute('data-credpwd'))"
                             >Edit</button>
-                            <a data-id="deleteCred" href="@{/credential/{credentialid}(credentialid=${credential.credentialid})}" class="btn btn-danger">Delete</a>
+                            <a data-id="deleteCred" th:href="@{credential/delete-credential/{credentialid} (credentialid=${credential.credentialid})}"  class="btn btn-danger">Delete</a>
                         </td>
                         <th data-id="credentialUrl" th:text="${credential.url}" scope="row">Example Credential URL</th>
                         <td data-id="credentialUsername" th:text="${credential.username}">Example Credential Username</td>

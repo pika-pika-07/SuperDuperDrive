@@ -161,6 +161,18 @@ class SuperDuperDriveApplicationTests {
 		Assertions.assertEquals(credUser, homePageTest.getCredUsername());
 	}
 
+	@Order(9)
+	@Test
+	public void verifyCredentialDelete() {
+		loginAsUserWithCreds();
+		homePageTest.changeTabToCreds(driver);
+		homePageTest.deleteCredential(driver);
+		assertThrows(NoSuchElementException.class, () -> {
+			homePageTest.getCredUsername();
+		});
+
+	}
+
 
 	private User createTestUser() {
 		String username = RandomStringUtils.randomAlphabetic(5);
