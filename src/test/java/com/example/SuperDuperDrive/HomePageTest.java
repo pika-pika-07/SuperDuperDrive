@@ -44,15 +44,8 @@ public class HomePageTest {
     @FindBy(id="buttonAddNewNote")
     private WebElement buttonAddNewNote;
 
-//    @FindBy(css="#notesTable tbody tr td:nth-of-type(1)")
-//    private WebElement noteTitles;
-
     @FindBy(id="noteTitle")
     private WebElement noteTitles;
-
-//    @FindBy(css="#notesTable tbody tr td:nth-of-type(2)")
-//    private WebElement noteDescriptions;
-
 
     @FindBy(id="noteDescription")
     private WebElement noteDescriptions;
@@ -140,26 +133,18 @@ public class HomePageTest {
         // Submit Note Modal
         wait.until(ExpectedConditions.elementToBeClickable(this.buttonNoteSaveChanges));
         this.buttonNoteSaveChanges.click();
-      //  wait.until(ExpectedConditions.invisibilityOf(this.buttonAddNewNote));
 
         // Success Link
         wait.until(ExpectedConditions.visibilityOf(this.linkChangeSuccess));
         this.linkChangeSuccess.click();
 
 
-        //wait(1);
+        //wait(1 sec);
         try {
             Thread.sleep(1 * 1000);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-      //  wait.until(ExpectedConditions.elementToBeClickable(this.buttonLogout));
-        //wait.until(ExpectedConditions.elementToBeClickable(this.tabNavNotes));
-        //this.tabNavNotes.click();
-
-       // wait.until(ExpectedConditions.elementToBeClickable(this.buttonAddNewNote));
-
     }
 
     public void editNote(String title, String description, WebDriver driver) {
@@ -297,8 +282,6 @@ public class HomePageTest {
 
     public void deleteCredential(WebDriver driver) {
         WebDriverWait wait = new WebDriverWait(driver, 1);
-//        wait.until(ExpectedConditions.elementToBeClickable(this.tabNavCredentials));
-//        this.tabNavCredentials.click();
         try {
             Thread.sleep(1 * 1000);
         } catch (Exception e) {
@@ -314,8 +297,6 @@ public class HomePageTest {
             e.printStackTrace();
         }
 
-
-        //  wait.until(ExpectedConditions.visibilityOf(this.linkChangeSuccess));
         wait.until(ExpectedConditions.elementToBeClickable(this.linkChangeSuccess));
         this.linkChangeSuccess.click();
 
@@ -333,7 +314,7 @@ public class HomePageTest {
         wait.until(ExpectedConditions.elementToBeClickable(this.tabNavNotes));
         this.tabNavNotes.click();
         wait.until(ExpectedConditions.visibilityOf(this.tabNavNotes));
-      //  wait.until(ExpectedConditions.elementToBeClickable(this.buttonAddNewNote));
+      
 
     }
 
@@ -343,7 +324,7 @@ public class HomePageTest {
         wait.until(ExpectedConditions.elementToBeClickable(this.tabNavCredentials));
         this.tabNavCredentials.click();
         wait.until(ExpectedConditions.visibilityOf(this.tabNavCredentials));
-        //  wait.until(ExpectedConditions.elementToBeClickable(this.buttonAddNewNote));
+
 
     }
 
@@ -369,14 +350,6 @@ public class HomePageTest {
     public String getCredPassword() {
         return this.credPasswords.getText();
     }
-
-
-//    public int getCredentialCount() {
-//        return this.credUrls.size();
-//    }
-
-
-
 
 
 }

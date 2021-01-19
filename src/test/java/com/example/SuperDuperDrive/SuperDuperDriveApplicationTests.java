@@ -93,27 +93,25 @@ class SuperDuperDriveApplicationTests {
 		driver.get("http://localhost:" + this.port + "/home");
 		Assertions.assertEquals("Home", driver.getTitle());
 
-
 	}
 
-
+	@Order(4)
 	@Test
 	public void verifyNoteCreate() throws InterruptedException {
 		loginAsTestUser();
-		String noteTitle = "Test Note 1";
-		String noteDesc = "Note 1 desc";
+		String noteTitle = "Test Note Title";
+		String noteDesc = "Test Note Description";
 		homePageTest.addNote(noteTitle, noteDesc,driver);
 		Assertions.assertEquals(noteTitle, homePageTest.getFirstNoteTitle());
 		Assertions.assertEquals(noteDesc, homePageTest.getFirstNoteDescription());
 	}
 
-
+	@Order(5)
 	@Test
 	public void verifyNoteEdit() throws InterruptedException {
 		loginWithExistingUser();
 		String noteTitle = "updated Title";
 		String noteDesc = "updated Description";
-		//driver.get("http://localhost:" + this.port + "/home");
 		homePageTest.changeTabToNotes(driver);
 
 		homePageTest.editNote(noteTitle, noteDesc,driver);
