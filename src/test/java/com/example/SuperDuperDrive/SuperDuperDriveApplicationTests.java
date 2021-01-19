@@ -127,9 +127,24 @@ class SuperDuperDriveApplicationTests {
 		assertThrows(NoSuchElementException.class, () -> {
 			homePageTest.getFirstNoteTitle();
 		});
+	}
 
+	@Order(7)
+	@Test
+
+	public void verifyCredentialCreate() throws InterruptedException {
+		loginAsTestUser();
+		homePageTest.changeTabToCreds(driver);
+		String credUrl = "http://www.google.com";
+		String credUser = "testUser1";
+		String credPwd = "testPwd1";
+		homePageTest.addCredential(credUrl, credUser, credPwd,driver);
+		//Assertions.assertEquals(credUrl, homePageTest.getCredUrl());
+		Assertions.assertEquals(credUser, homePageTest.getCredUsername());
+		//Assertions.assertNotEquals(credPwd, homePageTest.getFirstCredPassword());
 
 	}
+
 
 	private User createTestUser() {
 		String username = RandomStringUtils.randomAlphabetic(5);

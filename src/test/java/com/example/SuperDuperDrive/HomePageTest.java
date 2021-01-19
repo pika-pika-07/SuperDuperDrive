@@ -106,7 +106,7 @@ public class HomePageTest {
     @FindBy(id="credential-username")
     private WebElement inputCredUser;
 
-    @FindBy(css="credential-password")
+    @FindBy(id="credential-password")
     private WebElement inputCredPwd;
 
     @FindBy(id="credModalSaveChanges")
@@ -223,6 +223,41 @@ public class HomePageTest {
 
     }
 
+    public void addCredential(String url, String username, String password, WebDriver driver) {
+        WebDriverWait wait = new WebDriverWait(driver, 1);
+//        wait.until(ExpectedConditions.elementToBeClickable(this.tabNavCredentials));
+//        this.tabNavCredentials.click();
+
+        wait.until(ExpectedConditions.elementToBeClickable(this.buttonAddNewCred));
+        this.buttonAddNewCred.click();
+
+        wait.until(ExpectedConditions.visibilityOf(this.headerCredModal));
+
+        this.inputCredUrl.sendKeys(url);
+        this.inputCredUser.sendKeys(username);
+        this.inputCredPwd.sendKeys(password);
+        wait.until(ExpectedConditions.elementToBeClickable(this.buttonCredSaveChanges));
+        this.buttonCredSaveChanges.click();
+
+        try {
+            Thread.sleep(1 * 1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+      //  wait.until(ExpectedConditions.visibilityOf(this.linkChangeSuccess));
+        wait.until(ExpectedConditions.elementToBeClickable(this.linkChangeSuccess));
+        this.linkChangeSuccess.click();
+
+        try {
+            Thread.sleep(2 * 1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
 
     public void changeTabToNotes(WebDriver driver) {
         WebDriverWait wait = new WebDriverWait(driver, 10);
@@ -231,6 +266,16 @@ public class HomePageTest {
         this.tabNavNotes.click();
         wait.until(ExpectedConditions.visibilityOf(this.tabNavNotes));
       //  wait.until(ExpectedConditions.elementToBeClickable(this.buttonAddNewNote));
+
+    }
+
+    public void changeTabToCreds(WebDriver driver) {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+
+        wait.until(ExpectedConditions.elementToBeClickable(this.tabNavCredentials));
+        this.tabNavCredentials.click();
+        wait.until(ExpectedConditions.visibilityOf(this.tabNavCredentials));
+        //  wait.until(ExpectedConditions.elementToBeClickable(this.buttonAddNewNote));
 
     }
 
@@ -245,10 +290,19 @@ public class HomePageTest {
 
         return this.noteDescriptions.getText();
     }
+    public String getCredUrl() {
+        return this.credUrls.getText();
+    }
 
-//    public int getNoteCount(WebDriver driver) {
-//        return this.noteTitles.getText();
+    public String getCredUsername() {
+        return this.credUsernames.getText();
+    }
+
+
+//    public int getCredentialCount() {
+//        return this.credUrls.size();
 //    }
+
 
 
 
