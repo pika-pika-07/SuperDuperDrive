@@ -120,6 +120,11 @@ public class HomePageTest {
         wait.until(ExpectedConditions.visibilityOf(this.tabNavNotes));
 
         // Click on add new Note button
+        try {
+            Thread.sleep(1 * 1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         wait.until(ExpectedConditions.elementToBeClickable(this.buttonAddNewNote));
         this.buttonAddNewNote.click();
@@ -210,8 +215,14 @@ public class HomePageTest {
 
     public void addCredential(String url, String username, String password, WebDriver driver) {
         WebDriverWait wait = new WebDriverWait(driver, 1);
-//        wait.until(ExpectedConditions.elementToBeClickable(this.tabNavCredentials));
-//        this.tabNavCredentials.click();
+wait.until(ExpectedConditions.elementToBeClickable(this.tabNavCredentials));
+        this.tabNavCredentials.click();
+
+        try {
+            Thread.sleep(1 * 1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         wait.until(ExpectedConditions.elementToBeClickable(this.buttonAddNewCred));
         this.buttonAddNewCred.click();
@@ -245,7 +256,7 @@ public class HomePageTest {
 //        wait.until(ExpectedConditions.elementToBeClickable(this.tabNavCredentials));
 //        this.tabNavCredentials.click();
         try {
-            Thread.sleep(1 * 1000);
+            Thread.sleep(2 * 1000);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -23,6 +23,7 @@ public class LoginPageTest {
     public void login(String userName, String password){
         this.userName.sendKeys(userName);
         this.password.sendKeys(password);
+
         this.button.click();
     }
 }

@@ -24,13 +24,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class SuperDuperDriveApplicationTests {
 
 	@Autowired
+	CredentialService credentialService;
+
+	@Autowired
 	UserService userService;
 
 	@Autowired
 	NoteService noteService;
-
-	@Autowired
-	CredentialService credentialService;
 
 
 	@LocalServerPort
@@ -78,18 +78,21 @@ class SuperDuperDriveApplicationTests {
 
 	@Order(3)
 	@Test
-	public void verifyNewUserAccess() throws InterruptedException {
+	public void testNewUser() throws InterruptedException {
 
+		//signup
 		driver.get("http://localhost:" + this.port + "/signup");
-		String username = "pika";
-		String password = "pika";
-		signupPageTest.submitSignUpForm("fn", "ln", username, password);
+		String username = "pp";
+		String password = "123";
+		signupPageTest.submitSignUpForm("pika", "chu", username, password);
 
+		//login
 		driver.get("http://localhost:" + this.port + "/login");
 		Assertions.assertEquals("Login", driver.getTitle());
 		loginPageTest.login(username, password);
 		Assertions.assertEquals("Home", driver.getTitle());
 
+		//home
 		driver.get("http://localhost:" + this.port + "/home");
 		Assertions.assertEquals("Home", driver.getTitle());
 
@@ -97,8 +100,8 @@ class SuperDuperDriveApplicationTests {
 
 	@Order(4)
 	@Test
-	public void verifyNoteCreate() throws InterruptedException {
-		loginAsTestUser();
+	public void testNoteCreate() throws InterruptedException {
+		loginWithSampleUser();
 		String noteTitle = "Test Note Title";
 		String noteDesc = "Test Note Description";
 		homePageTest.addNote(noteTitle, noteDesc,driver);
@@ -108,8 +111,8 @@ class SuperDuperDriveApplicationTests {
 
 	@Order(5)
 	@Test
-	public void verifyNoteEdit() throws InterruptedException {
-		loginWithExistingUser();
+	public void testNoteEdit() throws InterruptedException {
+		CreateUserWithNotes();
 		String noteTitle = "updated Title";
 		String noteDesc = "updated Description";
 		homePageTest.changeTabToNotes(driver);
@@ -122,8 +125,8 @@ class SuperDuperDriveApplicationTests {
 
 	@Order(6)
 	@Test
-	public void verifyNoteDelete() throws InterruptedException {
-		loginWithExistingUser();
+	public void testNoteDelete() throws InterruptedException {
+		CreateUserWithNotes();
 		homePageTest.changeTabToNotes(driver);
 
 		homePageTest.deleteNote(driver);
@@ -134,22 +137,20 @@ class SuperDuperDriveApplicationTests {
 
 	@Order(7)
 	@Test
-	public void verifyCredentialCreate() throws InterruptedException {
-		loginAsTestUser();
+	public void testCredentialCreate() throws InterruptedException {
+		loginWithSampleUser();
 		homePageTest.changeTabToCreds(driver);
 		String credUrl = "http://www.google.com";
 		String credUser = "testUser1";
 		String credPwd = "testPwd1";
 		homePageTest.addCredential(credUrl, credUser, credPwd,driver);
-		//Assertions.assertEquals(credUrl, homePageTest.getCredUrl());
 		Assertions.assertEquals(credUser, homePageTest.getCredUsername());
-		//Assertions.assertNotEquals(credPwd, homePageTest.getFirstCredPassword());
 	}
 
 	@Order(8)
 	@Test
-	public void verifyCredentialEdit() throws InterruptedException {
-		loginAsUserWithCreds();
+	public void testCredentialEdit() throws InterruptedException {
+		CreateuserWithCreds();
 		homePageTest.changeTabToCreds(driver);
 		String credUrl = "http://www.google.co.in";
 		String credUser = homePageTest.getCredUsername() + "new" + "testUser123";
@@ -161,8 +162,8 @@ class SuperDuperDriveApplicationTests {
 
 	@Order(9)
 	@Test
-	public void verifyCredentialDelete() {
-		loginAsUserWithCreds();
+	public void testCredentialDelete() {
+		CreateuserWithCreds();
 		homePageTest.changeTabToCreds(driver);
 		homePageTest.deleteCredential(driver);
 		assertThrows(NoSuchElementException.class, () -> {
@@ -171,8 +172,53 @@ class SuperDuperDriveApplicationTests {
 
 	}
 
+	private void loginWithSampleUser() {
+		String username = RandomStringUtils.randomAlphabetic(5);
+		String password = RandomStringUtils.randomAlphabetic(5);
+		User user = new User();
+		user.setFirstname("firstname");
+		user.setLastname("lastname");
+		user.setUsername( username);
+		user.setPassword( password);
+		userService.signupUser(user);
 
-	private User createTestUser() {
+		user.setPassword(password);
+
+		driver.get("http://localhost:" + this.port + "/login");
+		loginPageTest.login(user.getUsername(), user.getPassword());
+
+	}
+
+	private void CreateUserWithNotes() {
+		//signup user
+		String username = RandomStringUtils.randomAlphabetic(5);
+		String password = RandomStringUtils.randomAlphabetic(5);
+		User user = new User();
+		user.setFirstname("firstname");
+		user.setLastname("lastname");
+		user.setUsername( username);
+		user.setPassword( password);
+		userService.signupUser(user);
+		user.setPassword(password);
+
+		// Add note
+		Note note = new Note();
+		note.setUserid(user.getUserid());
+		note.setNoteTitle("sample title");
+		note.setNoteDescription("sample description");
+		noteService.createOrEditNote(note);
+
+		//login
+		driver.get("http://localhost:" + this.port + "/login");
+		loginPageTest.login(user.getUsername(), user.getPassword());
+        driver.get("http://localhost:" + this.port + "/home");
+
+	}
+
+
+	private void CreateuserWithCreds() {
+		//User user = createTestUser();
+
 		String username = RandomStringUtils.randomAlphabetic(5);
 		String password = RandomStringUtils.randomAlphabetic(5);
 		User user = new User();
@@ -180,36 +226,15 @@ class SuperDuperDriveApplicationTests {
 		user.setLastname("lastname");
 		user.setUsername(username);
 		user.setPassword(password);
-		userService. signupUser(user);
-		// re-set password since service hashes it
+		userService.signupUser(user);
 		user.setPassword(password);
-		return user;
-	}
 
-	private void loginWithExistingUser() {
-		User user = createTestUser();
-		Note note = new Note();
-		note.setUserid(user.getUserid());
-		note.setNoteTitle("sample title");
-		note.setNoteDescription("sample description");
-		noteService.createOrEditNote(note);
-		loginAsTestUser(user);
-	}
-
-	private void loginAsTestUser(User... users) {
-		User user;
-		if (users.length == 0) {
-			user = createTestUser();
-		} else {
-			user = users[0];
-		}
 		driver.get("http://localhost:" + this.port + "/login");
 		loginPageTest.login(user.getUsername(), user.getPassword());
-		driver.get("http://localhost:" + this.port + "/home");
-	}
 
-	private void loginAsUserWithCreds() {
-		User user = createTestUser();
+
+		// Add credential
+
 		Credential cred = new Credential();
 		cred.setUrl("http://www.google.com");
 		cred.setUsername("testUser1");
@@ -217,7 +242,13 @@ class SuperDuperDriveApplicationTests {
 		cred.setUserid(user.getUserid());
 		credentialService.createOrEditCredential(cred);
 
-		loginAsTestUser(user);
+		//Login
+		driver.get("http://localhost:" + this.port + "/login");
+		loginPageTest.login(user.getUsername(), user.getPassword());
+        driver.get("http://localhost:" + this.port + "/home");
+
 	}
+
+
 
 }
