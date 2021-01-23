@@ -27,15 +27,8 @@ public class NoteController {
         Integer userid = userService.getCurrentLoggedInUserId(auth);
 
         note.setUserid(userid);
-       // redirectAttributes.addFlashAttribute("activeTab", "notes");
-        try {
-            noteService.createOrEditNote(note);
-            model.addAttribute("success", true);
-        } catch (Exception e) {
-            model.addAttribute("hasGenericError", true);
-            e.printStackTrace();
-        }
-        //model.addAttribute("redirectTab", "nav-notes-tab");
+        noteService.createOrEditNote(note);
+        model.addAttribute("success", true);
         model.addAttribute("activeTab", "nav-notes-tab");
         return "result";
     }
@@ -51,7 +44,7 @@ public class NoteController {
         model.addAttribute("activeTab","");
 
         return "result";
-        //return "redirect:/home";
+
     }
 
 

@@ -24,28 +24,17 @@ public class CredentialController {
     public String createOrEditCredential(Authentication auth, Model model, @ModelAttribute Credential credential) {
         Integer userid = userService.getCurrentLoggedInUserId(auth);
         credential.setUserid(userid);
-        try {
-            credentialService.createOrEditCredential(credential);
-            model.addAttribute("success", true);
-        } catch (Exception e) {
-            model.addAttribute("exceptionOccured", true);
-            e.printStackTrace();
-        }
+        credentialService.createOrEditCredential(credential);
+        model.addAttribute("success", true);
         model.addAttribute("activeTab", "nav-credentials-tab");
         return "result";
     }
 
-  //  @DeleteMapping("/{credentialid}")
     @GetMapping("/delete-credential/{credentialid}")
     public String deleteCredential(Authentication auth, @PathVariable Integer credentialid, Model model) {
         Integer userid = userService.getCurrentLoggedInUserId(auth);
-        try {
-            credentialService.deleteCredential(credentialid, userid);
-            model.addAttribute("success", true);
-        } catch (Exception e) {
-            model.addAttribute("hasGenericError", true);
-            e.printStackTrace();
-        }
+        credentialService.deleteCredential(credentialid, userid);
+        model.addAttribute("success", true);
         model.addAttribute("activeTab", "nav-credentials-tab");
         return "result";
     }

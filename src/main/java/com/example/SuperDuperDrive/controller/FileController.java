@@ -62,7 +62,6 @@ public class FileController {
        // redirectAttributes.addFlashAttribute("activeTab", "files");
         fileService.deleteFile(fileId, userid);
         model.addAttribute("success", true);
-        //model.addAttribute("redirectTab", "");
         model.addAttribute("activeTab","");
         return "result";
     }

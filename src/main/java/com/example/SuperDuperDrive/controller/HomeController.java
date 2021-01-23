@@ -39,7 +39,6 @@ public class HomeController {
         model.addAttribute("note", new Note());
         model.addAttribute("credentials", credentialService.getAllCredentials(user.getUserid()));
         model.addAttribute("credential", new Credential());
-        //model.addAttribute("activeTab", "files");
         return "home";
     }
 }
