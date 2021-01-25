@@ -3,10 +3,12 @@ package com.example.SuperDuperDrive.mapper;
 
 import com.example.SuperDuperDrive.model.File;
 import org.apache.ibatis.annotations.*;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Mapper
+@Repository
 public interface FileMapper {
     @Select("SELECT * FROM FILES WHERE fileId = #{fileId} AND userid = #{userid}")
     File getFile(Integer fileId, Integer userid);

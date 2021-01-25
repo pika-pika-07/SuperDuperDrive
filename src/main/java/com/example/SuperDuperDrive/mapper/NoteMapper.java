@@ -2,9 +2,11 @@ package com.example.SuperDuperDrive.mapper;
 
 import com.example.SuperDuperDrive.model.Note;
 import org.apache.ibatis.annotations.*;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 @Mapper
+@Repository
 public interface NoteMapper {
 
     @Select("SELECT * FROM NOTES WHERE userId = #{userId}")

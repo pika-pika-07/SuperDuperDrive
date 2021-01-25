@@ -61,11 +61,18 @@ class SuperDuperDriveApplicationTests {
 		homePageTest = new HomePageTest(driver);
 	}
 
+
 	@Order(1)
 	@Test
 	public void getLoginPage() {
 		driver.get("http://localhost:" + this.port + "/login");
 		Assertions.assertEquals("Login", driver.getTitle());
+	}
+
+	@Test
+	public void testUnauthorizedUserAccess() {
+		driver.get("http://localhost:" + this.port + "/home");
+		Assertions.assertNotEquals("Home", driver.getTitle());
 	}
 
 

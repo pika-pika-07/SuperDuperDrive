@@ -2,10 +2,12 @@ package com.example.SuperDuperDrive.mapper;
 
 import com.example.SuperDuperDrive.model.Credential;
 import org.apache.ibatis.annotations.*;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Mapper
+@Repository
 public interface CredentialMapper {
     @Select("SELECT * FROM CREDENTIALS WHERE userid = #{userid}")
     List<Credential> getAllCredentials(Integer userid);
