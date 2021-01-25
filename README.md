@@ -1,4 +1,4 @@
-#PersonalDrive (Cloud Storage Web App)
+#PersonalDrive 
 
 Requirements to run the app
 1. JDK 11 or higher
