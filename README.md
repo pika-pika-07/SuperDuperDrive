@@ -1,5 +1,4 @@
-Store Management
-
+Data Storage App
 Its a simple cloud storage app which stores basic info such as files, credentials and notes for a particular user
 
 Requirements to run the app
