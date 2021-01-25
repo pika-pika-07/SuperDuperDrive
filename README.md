@@ -1,4 +1,6 @@
-#PersonalDrive 
+Store Management
+
+Its a simple cloud storage app which stores basic info such as files, credentials and notes for a particular user
 
 Requirements to run the app
 1. JDK 11 or higher
