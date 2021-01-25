@@ -3,6 +3,7 @@ package com.example.SuperDuperDrive.controller;
 import com.example.SuperDuperDrive.model.User;
 import com.example.SuperDuperDrive.services.UserService;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -28,12 +29,12 @@ public class SignupController {
         model.addAttribute("user",new User());
         String error = null;
         if(userService.isUserNameTaken(user.getUsername())){
-            error = "UserName Not Available";
-            model.addAttribute("signupError", error);
+            model.addAttribute("signupError", "UserName Not Available");
         }
         else{
             int result = userService.signupUser(user);
             System.out.println(result);
+            model.addAttribute("signupSuccess", true);
         }
 
         return "signup";

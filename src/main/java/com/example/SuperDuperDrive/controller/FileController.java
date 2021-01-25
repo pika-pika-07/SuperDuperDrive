@@ -37,8 +37,17 @@ public class FileController {
             model.addAttribute("hasErrorMsg", true);
             model.addAttribute("errorMsg", "File with same name already exists. File not uploaded.");
         } else {
-            fileService.storeFile(file, userid);
-            model.addAttribute("success", true);
+            if(file.getSize()>2000000)
+            {
+                model.addAttribute("hasErrorMsg", true);
+                model.addAttribute("errorMsg","Too large File to upload, Please upload a smaller file");
+            }
+            else{
+                fileService.storeFile(file, userid);
+                model.addAttribute("success", true);
+            }
+
+
         }
         model.addAttribute("activeTab", "");
         return "result";
