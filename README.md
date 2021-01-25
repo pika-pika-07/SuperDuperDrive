@@ -1,4 +1,4 @@
-#SuperDuperDrive(Cloud Storage Web App)
+SuperDuperDrive(Cloud Storage Web App)
 
 Requirements to run the app
 1. JDK 11 or higher
